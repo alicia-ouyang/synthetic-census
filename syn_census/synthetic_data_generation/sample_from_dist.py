@@ -36,8 +36,11 @@ SHORT_RN = {
         'H7X006': 'H_PI',
         'H7X007': 'OTH',
         'H7X008': 'TWO_OR_MORE',
+        'H76002': 'MALE', 
+        'H76026': 'FEMALE',
         'H8A003': 'BLOCK_18_PLUS',
         }
+GENDER_COLS = {}
 RACE_MAP = {
         Race.WHITE: 'W',
         Race.BLACK: 'B',
@@ -48,7 +51,7 @@ RACE_MAP = {
         Race.TWO_PLUS: 'TWO_OR_MORE',
         }
 
-DEMO_COLS = [SHORT_RN[k] for k in sorted(SHORT_RN.keys())[1:-1]] + ['NUM_HISP', '18_PLUS']
+DEMO_COLS = [SHORT_RN[k] for k in sorted(SHORT_RN.keys())[1:-1]] + ['NUM_HISP', '18_PLUS', 'GENDER']
 
 OUTPUT_COLS = [
         'YEAR',
@@ -71,6 +74,7 @@ OUTPUT_COLS = [
         'H7X006',
         'H7X007',
         'H7X008',
+        'GENDER',
         'NUM_HISP',
         '18_PLUS',
         'HH_NUM',

@@ -62,6 +62,10 @@ def get_age_from_p_record(p_record):
     assert 0 <= age
     return age
 
+def get_sex_from_p_record(p_record):
+    g = int(p_record[18:19])
+    return g-1
+
 def get_is_family_from_h_record(h_record):
     fam = int(h_record[57:58])
     assert 0 <= fam and fam <= 7
@@ -178,6 +182,10 @@ def get_eth_counts(row):
 
 def get_over_18_counts(row):
     return tuple(row['H9%s003' % s] for s in 'STUVWXY')
+
+def get_sex_total(row):
+    #return tuple of male first and female
+    return tuple(row['H76002'], row['H76026'])
 
 def get_over_18_total(row):
     return row['H8A003']

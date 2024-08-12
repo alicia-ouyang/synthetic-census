@@ -48,7 +48,7 @@ def reduce_dist(dist, level, use_age):
         c[k.reduce(level, use_age)] += v
     return normalize(c)
 
-def solve(row, dist, level=1):
+def solve(row, dist, level=0):
     SOLVER_RESULTS.level = level
     if level > MAX_LEVEL:
         SOLVER_RESULTS.status = SolverResults.UNSOLVED
@@ -61,7 +61,7 @@ def solve(row, dist, level=1):
         SOLVER_RESULTS.status = SolverResults.OK
         sol = OrderedDict({(counts,): 1.0})
         return sol
-    if level > 1:
+    if level > 0:
         solve_dist = reduce_dist(dist, level, use_age)
         counts = counts.reduce(level, use_age)
     print(counts)

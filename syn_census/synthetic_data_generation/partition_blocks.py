@@ -75,7 +75,7 @@ def generate_data(
             level = SOLVER_RESULTS.level
             use_age = SOLVER_RESULTS.use_age
             solve_dist = hh_dist
-            if level > 1:
+            if level > 0:
                 solve_dist = reduce_dist(hh_dist, level, use_age)
                 counts = counts.reduce(level, use_age)
             tag = (level, use_age)

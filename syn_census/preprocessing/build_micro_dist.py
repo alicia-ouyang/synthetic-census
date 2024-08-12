@@ -1,6 +1,6 @@
 from collections import Counter, namedtuple
 import re
-from ..utils.census_utils import RACE_HIS_ENUM, Race, get_is_family_from_h_record, get_race_from_p_record, get_n_under_18_from_h_record, get_eth_from_p_record, get_age_from_p_record, get_weight_from_h_record, hh_to_race_eth_age_tup
+from ..utils.census_utils import RACE_HIS_ENUM, Race, get_is_family_from_h_record, get_race_from_p_record, get_n_under_18_from_h_record, get_eth_from_p_record, get_age_from_p_record, get_sex_from_p_record, get_weight_from_h_record, hh_to_race_eth_age_tup
 from ..utils.knapsack_utils import normalize
 from ..utils.config2 import ParserBuilder
 parser_builder = ParserBuilder(
@@ -56,6 +56,13 @@ class Household():
         for person in self.people:
             c += person.eth
         return c
+    
+    @property
+    def sex_count(self):
+        c = 0
+        for person in self.people:
+            c += person.sex
+        return c
 
     def fix_family(self):
         if self.size == 1:
@@ -79,7 +86,7 @@ class Household():
     def to_tuple_granular(self):
         c = []
         for person in self.people:
-            c += [(person.race, person.eth, person.age >= 18)]
+            c += [(person.race, person.eth, person.age >= 18, person.sex)]
         return tuple(sorted(c))
 
     @property
@@ -109,13 +116,14 @@ class Household():
         return str(self.to_tuple)
 
 class Person():
-    def __init__(self, race, eth, age):
+    def __init__(self, race, eth, age, sex):
         self.race = race
         self.eth = eth
         self.age = age
+        self.sex = sex
 
     def __str__(self):
-        return '%s %d %d' % (self.race, self.eth, self.age)
+        return '%s %d %d %d' % (self.race, self.eth, self.age, self.sex)
 
 def read_microdata(fname, weights=None):
     dist = Counter()
@@ -127,10 +135,11 @@ def read_microdata(fname, weights=None):
                 race = get_race_from_p_record(line)
                 eth = get_eth_from_p_record(line)
                 age = get_age_from_p_record(line)
+                sex = get_sex_from_p_record(line)
                 assert(hh_data is not None)
                 if hh_data.holder == None:
-                    hh_data.holder = Person(race, eth, age)
-                hh_data.people.append(Person(race, eth, age))
+                    hh_data.holder = Person(race, eth, age, sex)
+                hh_data.people.append(Person(race, eth, age, sex))
             else:
                 if hh_data is not None and hh_data.holder is not None:
                     hh_data.fix_family()
@@ -161,21 +170,22 @@ def read_microdata_granular(fname):
                 race = get_race_from_p_record(line)
                 eth = get_eth_from_p_record(line)
                 age = get_age_from_p_record(line)
+                sex = get_sex_from_p_record(line)
                 assert(hh_data is not None)
                 if hh_data.holder == None:
-                    hh_data.holder = Person(race, eth, age)
-                hh_data.people.append(Person(race, eth, age))
+                    hh_data.holder = Person(race, eth, age, sex)
+                hh_data.people.append(Person(race, eth, age, sex))
             else:
                 if hh_data is not None and hh_data.holder is not None:
                     hh_data.fix_family()
-                    key = hh_data.race_counts + (hh_data.eth_count,) + (hh_data.n_over_18,)
+                    key = hh_data.race_counts + (hh_data.eth_count,) + (hh_data.n_over_18,) + (hh_data.sex_count,)
                     if key not in dist_map:
                         dist_map[key] = Counter()
                     dist_map[key][hh_data.to_tuple_granular] += 1
                 hh_data = Household(get_is_family_from_h_record(line), get_n_under_18_from_h_record(line))
         if hh_data is not None and hh_data.holder is not None:
             hh_data.fix_family()
-            key = hh_data.race_counts + (hh_data.eth_count,) + (hh_data.n_over_18,)
+            key = hh_data.race_counts + (hh_data.eth_count,) + (hh_data.n_over_18,) + (hh_data.sex_count,)
             if key not in dist_map:
                 dist_map[key] = Counter()
             dist_map[key][hh_data.to_tuple_granular] += 1

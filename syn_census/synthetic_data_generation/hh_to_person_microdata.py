@@ -48,10 +48,11 @@ def get_people_from_row(row : pd.Series, people):
             pers[get_people_from_row.INDS[RACE_MAP[r]]] = 0
             pers[get_people_from_row.INDS[RACE_MAP[p_race]]] = 1
             pers[get_people_from_row.INDS['NUM_HISP']] = p_eth
-            if p_age:
-                pers[get_people_from_row.INDS['18_PLUS']] = 1
-            else:
-                pers[get_people_from_row.INDS['18_PLUS']] = 0
+            #TODO: assign the item with age multiple of 5
+            # if p_age:
+            #     pers[get_people_from_row.INDS['18_PLUS']] = 1
+            # else:
+            #     pers[get_people_from_row.INDS['18_PLUS']] = 0
         l.append(pers)
     return l
 

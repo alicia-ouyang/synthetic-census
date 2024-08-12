@@ -23,6 +23,7 @@ NON_BLOCK_COLS_L = [
         'TWO_OR_MORE',
         'NUM_HISP',
         '18_PLUS',
+        'SEX',
         'HH_NUM',
         ]
 

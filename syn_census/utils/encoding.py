@@ -10,7 +10,7 @@ def encode_row(row):
     rh_counts = get_rh_counts(row)
     age_race = get_over_18_counts(row)
     age_eth = (get_age_eth(row),)
-    sex_counts = get_sex_total(row)
+    sex_counts = (get_sex_total(row), )
     type_encoding = get_types(row)
     num_hh = (get_num_hhs(row),)
     # print([(t, te) for te, t in zip(type_encoding, TYPES) if te > 0])
@@ -42,7 +42,7 @@ class Encoding0(namedtuple('Encoding0',
         [rh_to_str(rh) for rh in RACE_HIS_ENUM] +\
         ['n_18_' + r_to_str(r) for r in Race] +\
         ['n_18_HISP'] +\
-        ['n_femmes'] +\
+        ['n_fems'] +\
         [t_to_str(t) for t in TYPES] +\
         ['num_hh'])):
 
@@ -103,7 +103,7 @@ class Encoding0(namedtuple('Encoding0',
         return sum(getattr(self, 'n_18_' + r_to_str(r)) for r in Race)
     
     def get_sex(self):
-        return sum(getattr(self, 'sex'))
+        return getattr(self, 'n_fems')
 
     def __str__(self):
         d = self._asdict()

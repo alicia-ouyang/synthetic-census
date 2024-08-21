@@ -184,8 +184,8 @@ def get_over_18_counts(row):
     return tuple(row['H9%s003' % s] for s in 'STUVWXY')
 
 def get_sex_total(row):
-    #return tuple of male first and female
-    return tuple(row['H76002'], row['H76026'])
+    #returning female counts
+    return row['H76026']
 
 def get_over_18_total(row):
     return row['H8A003']

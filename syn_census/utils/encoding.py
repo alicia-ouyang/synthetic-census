@@ -25,13 +25,14 @@ def encode_hh_dist(dist):
         age_race = tuple(hh.n_over_18 * make_one_hot_np(hh.holder.race.value-1, len(Race)))
         age_eth = (hh.holder.eth * hh.n_over_18,)
         #check sex counts equation?
-        sex_counts = (sum([person.sex for person in hh.people]),)
+        sex_counts = sum([person.sex for person in hh.people])
+        sex = (sex_counts,)
         type_encoding = make_one_hot_np(TYPE_INDEX[hh.race_type], len(TYPE_INDEX))
         if hh.holder.eth == 1:
             type_encoding += make_one_hot_np(TYPE_INDEX[hh.eth_type], len(TYPE_INDEX))
         type_encoding = tuple(type_encoding)
         num_hh = (1,)
-        new_dist[Encoding0(*(rh_counts + age_race + age_eth + sex_counts + type_encoding + num_hh))] += prob
+        new_dist[Encoding0(*(rh_counts + age_race + age_eth + sex + type_encoding + num_hh))] += prob
     return new_dist
 
 

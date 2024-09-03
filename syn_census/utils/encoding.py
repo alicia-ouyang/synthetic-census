@@ -63,23 +63,28 @@ class Encoding0(namedtuple('Encoding0',
         return the_type
 
     def reduce(self, level, use_age):
-        if level == 0:
+        # if level == 0:
             # rh_counts = get_rh_counts(row)
             # age_race = get_over_18_counts(row)
             # age_eth = (get_age_eth(row),)
             # type_encoding = get_types(row)
             # num_hh = (get_num_hhs(row),)
             # schema: (r X h for all r, h; n18+ (?); num HH)
-            rh_counts = tuple(getattr(self, rh_to_str(rh)) for rh in RACE_HIS_ENUM)
-            age_race = tuple(getattr(self, 'n_18_' + r_to_str(r)) for r in Race)
-            age_eth = tuple(getattr(self, 'n_18_HISP'))
-            type_encoding = tuple(getattr(self, t_to_str(t)) for t in TYPES)
-            # num HH
-            hh = (self.num_hh,)
-            tup = rh_counts + age_race + age_eth + type_encoding + hh
-            return Encoding1(*tup)
+        rh_counts = tuple(getattr(self, rh_to_str(rh)) for rh in RACE_HIS_ENUM)
+        age_race = tuple(getattr(self, 'n_18_' + r_to_str(r)) for r in Race)
+        #NOTE: Is this right?
+        age_eth = (getattr(self, 'n_18_HISP'),)
+        type_encoding = tuple(getattr(self, t_to_str(t)) for t in TYPES)
+        # num HH
+        hh = (self.num_hh,)
+        tup = rh_counts + age_race + age_eth + type_encoding + hh
+        obj1 = Encoding1(*tup)
+        if level == 1:
+            return obj1
         else:
-            raise ValueError('Level %d undefined' % level)
+            return obj1.reduce(level, use_age)
+        # else:
+        #     raise ValueError('Level %d undefined' % level)
 
     def to_sol(self):
         r_counts = self.get_r_counts()

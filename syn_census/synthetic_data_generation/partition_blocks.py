@@ -59,9 +59,6 @@ def generate_data(
     samplers = {}
 
     for i, (ind, row) in enumerate(df.iterrows()):
-        if get_num_hhs(row) > 1:
-            continue
-        print()
         print('index', ind, 'id', row['identifier'])
         if row['identifier'] in already_finished:
             print(row['identifier'], 'already finished')

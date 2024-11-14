@@ -92,7 +92,7 @@ class Encoding0(namedtuple('Encoding0',
         age = (self.get_n18(),)
         sex = (self.get_sex(), )
         #TODO: add sex to this output tuple
-        return r_counts + eth + age
+        return r_counts + eth + age + sex
 
     def get_r_counts(self):
         eth_0 = np.array([getattr(self, rh_to_str((r, 0))) for r in Race], dtype=int)
@@ -173,7 +173,7 @@ class Encoding1(namedtuple('Encoding1',
         r_counts = self.get_r_counts()
         eth = (self.get_eth_count(),)
         age = (self.get_n18(),)
-        sex = (0,)
+        sex = (-1,)
         return r_counts + eth + age + sex
 
     def get_r_counts(self):
@@ -212,7 +212,7 @@ class Encoding2a(namedtuple('Encoding2a',
         r_counts = self.get_r_counts()
         eth = (self.get_eth_count(),)
         age = (self.n_18,)
-        sex = (0,)
+        sex = (-1,)
         return r_counts + eth + age + sex
 
     def __str__(self):
@@ -236,8 +236,9 @@ class Encoding2b(namedtuple('Encoding2b',
     def to_sol(self):
         r_counts = self.get_r_counts()
         eth = (self.get_eth_count(),)
-        sex = (0,)
-        return r_counts + eth + sex
+        age = (-1,)
+        sex = (-1,)
+        return r_counts + eth + age + sex
 
     def __str__(self):
         d = self._asdict()
@@ -249,8 +250,11 @@ class Encoding3a(namedtuple('Encoding3a',
         ['n_18'])):
 
     def to_sol(self):
-        sex = (0,)
-        return sex
+        r_counts = (-1,)
+        eth = (-1,)
+        age = (-1,)
+        sex = (-1,)
+        return r_counts + eth + age + sex
 
     def __str__(self):
         d = self._asdict()
@@ -261,8 +265,11 @@ class Encoding3b(namedtuple('Encoding3b',
         ['num_hisp'])):
 
     def to_sol(self):
-        sex = (0,)
-        return sex
+        r_counts = (-1,)
+        eth = (-1,)
+        age = (-1,)
+        sex = (-1,)
+        return r_counts + eth + age + sex
 
     def __str__(self):
         d = self._asdict()

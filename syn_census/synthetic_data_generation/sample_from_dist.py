@@ -104,8 +104,12 @@ def load_sample_and_accs(task_name, dist, out_dir):
                 for results in result_list:
                     breakdown = results['sol']
                     # Add age if missing
-                    if len(breakdown[0]) == RECORD_LENGTH - 1:
+                     #checking if indicies are less than 1 for age?
+                    if len(breakdown[0])[RECORD_LENGTH-2] ==  - 1:
                         breakdown = add_age(breakdown, dist)
+                    #check if the sex index is -1
+                    if len(breakdown[0])[RECORD_LENGTH-1] ==  - 1:
+                        breakdown = add_sex(breakdown, dist)
                     sample[results['id']] = breakdown
                     accs[results['id']] = (results['level'], results['age'])
     return sample, accs, errors
@@ -113,11 +117,22 @@ def load_sample_and_accs(task_name, dist, out_dir):
 def add_age(hh_list, dist):
     out_list = []
     for hh in hh_list:
+        eligible = [full_hh for full_hh in dist if hh == full_hh[:RECORD_LENGTH-2]]
+        probs = np.array([dist[full_hh] for full_hh in eligible], dtype='float')
+        ps = probs / np.sum(probs)
+        out_list.append(eligible[np.random.choice(range(len(eligible)), p=ps)])
+    return tuple(sorted(out_list))
+
+#Writing add_sex TODO Needs to be pulling from ipums person instead of household, might need to look at read_microdata
+def add_sex(hh_list, dist):
+    out_list = []
+    for hh in hh_list:
         eligible = [full_hh for full_hh in dist if hh == full_hh[:RECORD_LENGTH-1]]
         probs = np.array([dist[full_hh] for full_hh in eligible], dtype='float')
         ps = probs / np.sum(probs)
         out_list.append(eligible[np.random.choice(range(len(eligible)), p=ps)])
     return tuple(sorted(out_list))
+
 
 def aggregate_shards(
         micro_file: str,

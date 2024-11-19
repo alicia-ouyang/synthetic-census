@@ -106,10 +106,10 @@ def load_sample_and_accs(task_name, dist, out_dir):
                     print("breakdown length:", len(breakdown[0]), "record length", RECORD_LENGTH)
                     # Add age if missing
                      #checking if indicies are less than 1 for age?
-                    if len(breakdown[0])[RECORD_LENGTH-2] ==  - 1:
+                    if breakdown[0][RECORD_LENGTH-2] ==  - 1:
                         breakdown = add_age(breakdown, dist)
                     #check if the sex index is -1
-                    if len(breakdown[0])[RECORD_LENGTH-1] ==  - 1:
+                    if breakdown[0][RECORD_LENGTH-1] ==  - 1:
                         breakdown = add_sex(breakdown, dist)
                     sample[results['id']] = breakdown
                     accs[results['id']] = (results['level'], results['age'])

@@ -250,7 +250,7 @@ class Encoding3a(namedtuple('Encoding3a',
         ['n_18'])):
 
     def to_sol(self):
-        r_counts = (-1,)
+        r_counts = (-1,-1,-1,-1,-1,-1,-1)
         eth = (-1,)
         age = (-1,)
         sex = (-1,)
@@ -265,7 +265,7 @@ class Encoding3b(namedtuple('Encoding3b',
         ['num_hisp'])):
 
     def to_sol(self):
-        r_counts = (-1,)
+        r_counts = (-1,-1,-1,-1,-1,-1,-1)
         eth = (-1,)
         age = (-1,)
         sex = (-1,)

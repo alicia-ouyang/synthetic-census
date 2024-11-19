@@ -103,6 +103,7 @@ def load_sample_and_accs(task_name, dist, out_dir):
                 result_list = pickle.load(f)
                 for results in result_list:
                     breakdown = results['sol']
+                    print("breakdown length:", len(breakdown[0]), "record length", RECORD_LENGTH)
                     # Add age if missing
                      #checking if indicies are less than 1 for age?
                     if len(breakdown[0])[RECORD_LENGTH-2] ==  - 1:

@@ -82,7 +82,7 @@ OUTPUT_COLS = [
         'AGE_ACCURACY',
         ]
 
-RECORD_LENGTH = len(Race) + 2
+RECORD_LENGTH = len(Race) + 3
 
 CARRYOVER = set(OUTPUT_COLS) - POP_COLS
 
@@ -129,6 +129,7 @@ def add_sex(hh_list, dist):
     out_list = []
     for hh in hh_list:
         eligible = [full_hh for full_hh in dist if hh == full_hh[:RECORD_LENGTH-1]]
+        print('ADD SEX DEBUGGING, HOW MANY ELIGIBLE', len(eligible))
         probs = np.array([dist[full_hh] for full_hh in eligible], dtype='float')
         ps = probs / np.sum(probs)
         out_list.append(eligible[np.random.choice(range(len(eligible)), p=ps)])

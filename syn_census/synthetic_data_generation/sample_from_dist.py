@@ -105,9 +105,10 @@ def load_sample_and_accs(task_name, dist, out_dir):
                     breakdown = results['sol']
                     print("breakdown length:", len(breakdown[0]), "record length", RECORD_LENGTH)
                     # Add age if missing
-                     #checking if indicies are less than 1 for age?
+                    #checking if indicies are less than 1 for age?
                     if breakdown[0][RECORD_LENGTH-2] ==  - 1:
                         breakdown = add_age(breakdown, dist)
+                        print("AGE was added")
                     #check if the sex index is -1
                     if breakdown[0][RECORD_LENGTH-1] ==  - 1:
                         breakdown = add_sex(breakdown, dist)
@@ -128,6 +129,7 @@ def add_age(hh_list, dist):
 def add_sex(hh_list, dist):
     out_list = []
     for hh in hh_list:
+        print("Household vector", hh)
         eligible = [full_hh for full_hh in dist if hh == full_hh[:RECORD_LENGTH-1]]
         print('ADD SEX DEBUGGING, HOW MANY ELIGIBLE', len(eligible))
         probs = np.array([dist[full_hh] for full_hh in eligible], dtype='float')

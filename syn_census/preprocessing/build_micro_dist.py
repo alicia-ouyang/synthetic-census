@@ -136,7 +136,6 @@ def read_microdata(fname, weights=None):
                 eth = get_eth_from_p_record(line)
                 age = get_age_from_p_record(line)
                 sex = get_sex_from_p_record(line)
-                print("SEX FROM MICRODIST", sex)
                 assert(hh_data is not None)
                 if hh_data.holder == None:
                     hh_data.holder = Person(race, eth, age, sex)

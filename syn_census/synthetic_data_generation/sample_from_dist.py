@@ -119,6 +119,8 @@ def load_sample_and_accs(task_name, dist, out_dir):
 def add_age(hh_list, dist):
     out_list = []
     for hh in hh_list:
+        print("Household vector for adding age", hh)
+        hh = hh[:-2]
         eligible = [full_hh for full_hh in dist if hh == full_hh[:RECORD_LENGTH-2]]
         probs = np.array([dist[full_hh] for full_hh in eligible], dtype='float')
         ps = probs / np.sum(probs)
@@ -129,7 +131,8 @@ def add_age(hh_list, dist):
 def add_sex(hh_list, dist):
     out_list = []
     for hh in hh_list:
-        print("Household vector", hh)
+        print("Household vector for adding sex", hh)
+        hh = hh[:-1]
         eligible = [full_hh for full_hh in dist if hh == full_hh[:RECORD_LENGTH-1]]
         print('ADD SEX DEBUGGING, HOW MANY ELIGIBLE', len(eligible))
         probs = np.array([dist[full_hh] for full_hh in eligible], dtype='float')

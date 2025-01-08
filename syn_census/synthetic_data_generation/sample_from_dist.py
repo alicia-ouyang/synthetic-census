@@ -108,7 +108,7 @@ def load_sample_and_accs(task_name, dist, out_dir):
                     #checking if indicies are less than 1 for age?
                     if breakdown[0][RECORD_LENGTH-2] ==  - 1:
                         breakdown = add_age(breakdown, dist)
-                        print("AGE was added")
+                        print("AGE was added new breakdown", breakdown)
                     #check if the sex index is -1
                     if breakdown[0][RECORD_LENGTH-1] ==  - 1:
                         breakdown = add_sex(breakdown, dist)
@@ -121,11 +121,13 @@ def add_age(hh_list, dist):
     for hh in hh_list:
         print("Household vector for adding age", hh)
         hh = hh[:-2]
+        hh_sex = hh[:-1]
         eligible = [full_hh for full_hh in dist if hh == full_hh[:RECORD_LENGTH-2]]
         probs = np.array([dist[full_hh] for full_hh in eligible], dtype='float')
         ps = probs / np.sum(probs)
         out_list.append(eligible[np.random.choice(range(len(eligible)), p=ps)])
-    return tuple(sorted(out_list))
+        print("CHECKING ADD AGE OUTPUTS", out_list, tuple(sorted(out_list)), tuple(sorted(out_list))+hh_sex)
+    return tuple(sorted(out_list))+hh_sex
 
 #Writing add_sex TODO Needs to be pulling from ipums person instead of household, might need to look at read_microdata
 def add_sex(hh_list, dist):

@@ -121,7 +121,7 @@ def add_age(hh_list, dist):
     for hh in hh_list:
         print("Household vector for adding age", hh)
         hh = hh[:-2]
-        hh_sex = hh[:-1]
+        hh_sex = hh[-1]
         eligible = [full_hh for full_hh in dist if hh == full_hh[:RECORD_LENGTH-2]]
         probs = np.array([dist[full_hh] for full_hh in eligible], dtype='float')
         ps = probs / np.sum(probs)

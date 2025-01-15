@@ -127,8 +127,8 @@ def add_age(hh_list, dist):
         probs = np.array([dist[full_hh] for full_hh in eligible], dtype='float')
         ps = probs / np.sum(probs)
         out_list.append(eligible[np.random.choice(range(len(eligible)), p=ps)])
-        print("CHECKING ADD AGE OUTPUTS", out_list, tuple(sorted(out_list)), tuple(sorted(out_list))+(hh_sex,))
-    return tuple(sorted(out_list))+(hh_sex,)
+        print("CHECKING ADD AGE OUTPUTS", out_list, (tuple(sorted(out_list[0]))+(hh_sex,),))
+    return (tuple(sorted(out_list[0]))+(hh_sex,),)
 
 #Writing add_sex TODO Needs to be pulling from ipums person instead of household, might need to look at read_microdata
 def add_sex(hh_list, dist):

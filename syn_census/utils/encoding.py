@@ -114,7 +114,6 @@ class Encoding0(namedtuple('Encoding0',
         d = self._asdict()
         return str({k: v for k, v in d.items() if v > 0})
 
-#TODO: Add dummy value for sex in to_sol tuple so dimensions match
 class Encoding1(namedtuple('Encoding1',
         [rh_to_str(rh) for rh in RACE_HIS_ENUM] +\
         ['n_18_' + r_to_str(r) for r in Race] +\

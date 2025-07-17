@@ -20,13 +20,20 @@ def make_non_hispanic(df):
     df.loc[df['NUM_HISP'] > 0, ['W', 'B', 'AI_AN', 'AS', 'H_PI', 'OTH', 'TWO_OR_MORE']] = 0
 
 def make_arrays(df):
-    tot_df = df[['TOTAL'] + DEMO_COLS + ['td_identifier']].groupby('td_identifier').sum().reset_index()
-    vap_df = df[df['18_PLUS'] > 0][['TOTAL'] + DEMO_COLS + ['td_identifier']].groupby('td_identifier').sum().reset_index()
+    all_td_ids = list(set(df["td_identifier"]))
+
+    tot_df = df[['TOTAL'] + DEMO_COLS + ['td_identifier']].groupby('td_identifier').sum().reset_index().sort_values(by="td_identifier")
+    vap_df = df[df['18_PLUS'] > 0][['TOTAL'] + DEMO_COLS + ['td_identifier']].groupby('td_identifier').sum().reset_index().sort_values(by="td_identifier")
     print(tot_df.head())
     print(vap_df.head())
+
+    tot_df_td_ids = list(set(tot_df["td_identifier"]))
+    vap_df_td_ids = list(set(vap_df["td_identifier"]))
+
     leaves = {}
     for (i, tot_row), (j, vap_row) in zip(tot_df.iterrows(), vap_df.iterrows()):
-        assert tot_row['td_identifier'] == vap_row['td_identifier']
+        if tot_row['td_identifier'] != vap_row['td_identifier']:
+            continue
         tot_array = tot_row[ARRAY_ORDER].values
         vap_array = vap_row[ARRAY_ORDER].values
         leaves[str(tot_row['td_identifier'])] = {'TOTPOP': tot_array, 'VAP': vap_array}
@@ -115,7 +122,6 @@ if __name__ == '__main__':
     print(state_data)
     state_geo = GeoUnit(str(df['STATEA'][0]).zfill(2), None, state_data)
 
-    # tx = GeoUnit("48", None, tx_data)
     # county_geounits = [GeoUnit(geoid, "48", attr) for geoid, attr in counties.items()]
     geounits.insert(0, state_geo)
 
@@ -146,8 +152,8 @@ if __name__ == '__main__':
         tot_df, vap_df = build_df_from_dict(d, block_df)
         # to_sav = np.array((client.gather(adjusteds)))
         if WRITE:
-            tot_df.to_csv(get_dp_tot_file(task_name), index=False)
-            vap_df.to_csv(get_dp_vap_file(task_name), index=False)
+            tot_df.to_csv(get_dp_tot_file(task_name, eps, j), index=False)
+            vap_df.to_csv(get_dp_vap_file(task_name, eps, j), index=False)
         del adjusteds
         
     del model_all

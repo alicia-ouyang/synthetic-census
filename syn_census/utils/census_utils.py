@@ -81,46 +81,46 @@ def get_weight_from_h_record(h_record):
     return weight
 
 # May need this to go back to shape files
-# def get_micro_file():
-    # return MICRO_FILE
+def get_micro_file():
+    return MICRO_FILE
 
-# def get_dist_dir():
-    # return OUTPUT_DIR
+def get_dist_dir():
+    return OUTPUT_DIR
 
-# def get_block_file():
-    # return BLOCK_FILE
+def get_block_file():
+    return BLOCK_FILE
 
-# def get_block_out_file():
-    # return BLOCK_OUTPUT_FILE
+def get_block_out_file():
+    return BLOCK_OUTPUT_FILE
 
-# def get_swapped_file(task_name=''):
-    # return get_dist_dir() + task_name + 'swapped.csv'
+def get_swapped_file(task_name=''):
+    return get_dist_dir() + task_name + 'swapped.csv'
 
-# def get_person_micro_file(task_name=''):
-    # return get_dist_dir() + task_name + 'person_micro.csv'
+def get_person_micro_file(task_name=''):
+    return get_dist_dir() + task_name + 'person_micro.csv'
 
-# def get_dp_tot_file(task_name):
-    # return get_dist_dir() + task_name + 'tot_toydown.csv'
+def get_dp_tot_file(task_name='', eps='', trial=''):
+    return get_dist_dir() + task_name + '_' + eps + '_' + trial + '_' 'tot_toydown.csv'
 
-# def get_dp_vap_file(task_name):
-    # return get_dist_dir() + task_name + 'vap_toydown.csv'
+def get_dp_vap_file(task_name='', eps='', trial=''):
+    return get_dist_dir() + task_name + '_' + eps + '_' + trial + '_' 'vap_toydown.csv'
 
-# def get_shape_file(area):
-    # shape_dict = {
-            # 'BLOCK': SHAPE_FILE,
-            # 'BLOCK_GROUP': GROUP_SHAPE_FILE,
-            # 'COUNTY': COUNTY_SHAPE_FILE,
-            # 'TRACT': TRACT_SHAPE_FILE,
-            # 'UP_LEG': UP_LEG_SHAPE_FILE,
-            # 'LOW_LEG': LOW_LEG_SHAPE_FILE,
-            # 'CONG': CONG_SHAPE_FILE,
-            # }
-    # return shape_dict[area]
+def get_shape_file(area):
+    shape_dict = {
+            'BLOCK': SHAPE_FILE,
+            'BLOCK_GROUP': GROUP_SHAPE_FILE,
+            'COUNTY': COUNTY_SHAPE_FILE,
+            'TRACT': TRACT_SHAPE_FILE,
+            'UP_LEG': UP_LEG_SHAPE_FILE,
+            'LOW_LEG': LOW_LEG_SHAPE_FILE,
+            'CONG': CONG_SHAPE_FILE,
+            }
+    return shape_dict[area]
 
-# get_shape_file.AREAS = ['BLOCK', 'BLOCK_GROUP', 'COUNTY', 'TRACT', 'UP_LEG', 'LOW_LEG', 'CONG']
+get_shape_file.AREAS = ['BLOCK', 'BLOCK_GROUP', 'COUNTY', 'TRACT', 'UP_LEG', 'LOW_LEG', 'CONG']
 
-# def get_synthetic_out_file(name=''):
-    # return get_dist_dir() + name + 'synthetic.csv'
+def get_synthetic_out_file(name=''):
+    return get_dist_dir() + name + 'synthetic.csv'
 
 
 # Sample codes [H9S-H9Y]
@@ -183,9 +183,9 @@ def get_eth_counts(row):
 def get_over_18_counts(row):
     return tuple(row['H9%s003' % s] for s in 'STUVWXY')
 
-def get_sex_total(row):
-    #returning female counts
-    return row['H76026']
+# def get_sex_total(row):
+#     #returning female counts
+#     return row['H76026']
 
 def get_over_18_total(row):
     return row['H8A003']

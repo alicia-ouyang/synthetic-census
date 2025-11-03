@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH -c 1                # Number of cores (-c)
-#SBATCH -t 0-0:15          # Runtime in D-HH:MM, minimum of 10 minutes
+#SBATCH -t 0-0:30          # Runtime in D-HH:MM, minimum of 10 minutes
 #SBATCH -p sched_mit_sloan_batch_r8 # Partition to submit to
-#SBATCH --mem=1000           # Memory pool for all cores (see also --mem-per-cpu)
+#SBATCH --mem=10G           # Memory pool for all cores (see also --mem-per-cpu)
 #SBATCH -o out_files/samp.%j.out  # File to which STDOUT will be written, %j inserts jobid
 #SBATCH -e out_files/samp.%j.err  # File to which STDERR will be written, %j inserts jobid
 #SBATCH --mail-type=END

@@ -21,7 +21,7 @@ We'll need a combination of data from NHGIS and PUMS from the census. For a part
   1. Start [here](https://data2.nhgis.org/main)
   2. Choose dataset `2010_SF1a`
   3. Choose geographic level `Block`
-  4. Choose tables `P3`, `P5`, `P16`, `P16A`--`P16H`, `P28`, and `P28A`--`P28H`. In general, we'd prefer to use the more granular `A`--`H` tables, but sometimes we'll have to fall back on the less granular ones.
+  4. Choose tables `P3`, `P5`, `P12`, `P16`, `P16A`--`P16H`, `P28`, and `P28A`--`P28H`. In general, we'd prefer to use the more granular `A`--`H` tables, but sometimes we'll have to fall back on the less granular ones.
   5. Click CONTINUE, and click CONTINUE again.
   6. Select the right state under GEOGRAPHIC EXTENTS
   7. SUBMIT

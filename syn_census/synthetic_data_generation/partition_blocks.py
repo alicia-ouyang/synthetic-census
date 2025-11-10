@@ -8,6 +8,10 @@ from ..utils.encoding import encode_hh_dist, encode_row
 from ..utils.census_utils import *
 from ..preprocessing.build_micro_dist import read_microdata
 from .mcmc_sampler import MCMCSampler
+import json
+
+with open('elim_households.json', 'r') as f:
+    elim_households_dict = json.load(f)
 
 def read_block_data(block_clean_file: str):
     return pd.read_csv(block_clean_file)
@@ -21,6 +25,7 @@ def sample_from_sol(sol):
         return keys[0]
 
 def generate_data(
+        state: str,
         micro_file: str,
         block_clean_file: str,
         num_sols: int,
@@ -35,6 +40,9 @@ def generate_data(
     df = read_block_data(block_clean_file)
     # non-empty rows
     df = df[df['H7X001'] > 0]
+    #trying to remove households that mess up our sampling
+    if state in elim_households_dict:
+        df = df[~df['identifier'].isin(elim_households_dict[state])]
     # Densely populated blocks take longer to solve, so this distributes the load better
     df = df.sample(frac=1, random_state=0)
     n = len(df)

@@ -56,8 +56,9 @@ if __name__ == '__main__':
     if os.path.exists(out_file):
         print(out_file, 'already exists')
         sys.exit(0)
-
+    
     output, errors = generate_data(
+            args.state,
             args.micro_file,
             args.block_clean_file,
             args.num_sols,

@@ -9,8 +9,14 @@ from ..utils.census_utils import Race
 from ..utils.config2 import ParserBuilder
 from ..preprocessing.build_micro_dist import read_microdata
 from ..preprocessing.build_block_df import make_identifier_non_unique
+import json
+
+with open('elim_households.json', 'r') as f:
+    elim_households_dict = json.load(f)
+
 
 parser_builder = ParserBuilder({
+    'state': True,
     'micro_file': True,
     'block_clean_file': True,
     'synthetic_output_dir': True,
@@ -116,12 +122,15 @@ def add_age(hh_list, dist):
     return tuple(sorted(out_list))
 
 def aggregate_shards(
+        state: str,
         micro_file: str,
         block_clean_file: str,
         synthetic_output_dir: str,
         task_name: str,
         ):
     df = pd.read_csv(block_clean_file)
+    if state in elim_households_dict:
+        df = df[~df['identifier'].isin(elim_households_dict[state])]
     print(df.head())
     dist = read_microdata(micro_file)
     dist = process_dist(dist)

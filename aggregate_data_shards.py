@@ -3,6 +3,7 @@ from syn_census.utils.config2 import ParserBuilder
 from syn_census.synthetic_data_generation.sample_from_dist import aggregate_shards
 
 parser_builder = ParserBuilder({
+    'state': True,
     'micro_file': True,
     'block_clean_file': True,
     'synthetic_output_dir': True,
@@ -17,7 +18,7 @@ if __name__ == '__main__':
         task_name = args.task_name + '_'
     else:
         task_name = ''
-    out_df = aggregate_shards(args.micro_file, args.block_clean_file, args.synthetic_output_dir, task_name)
+    out_df = aggregate_shards(args.state, args.micro_file, args.block_clean_file, args.synthetic_output_dir, task_name)
     out_fname = os.path.join(args.synthetic_output_dir, task_name + 'microdata.csv')
     with open(out_fname, 'w') as f:
         print('Writing to', out_fname)

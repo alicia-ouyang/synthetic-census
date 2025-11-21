@@ -42,7 +42,8 @@ def generate_data(
     df = df[df['H7X001'] > 0]
     #trying to remove households that mess up our sampling
     if state in elim_households_dict:
-        df = df[~df['identifier'].isin(elim_households_dict[state])]
+        if "generation" in elim_households_dict[state]: 
+            df = df[~df['identifier'].isin(elim_households_dict[state]["generation"])]
     # Densely populated blocks take longer to solve, so this distributes the load better
     df = df.sample(frac=1, random_state=0)
     n = len(df)

@@ -130,7 +130,9 @@ def aggregate_shards(
         ):
     df = pd.read_csv(block_clean_file)
     if state in elim_households_dict:
-        df = df[~df['identifier'].isin(elim_households_dict[state])]
+        if "aggregation" in elim_households_dict[state]:
+            for df_col_key in elim_households_dict[state]["aggregation"]:
+                df = df[~df[df_col_key].isin(elim_households_dict[state]["aggregation"][df_col_key])]
     print(df.head())
     dist = read_microdata(micro_file)
     dist = process_dist(dist)

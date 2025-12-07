@@ -1,5 +1,6 @@
 {"DE": 
     {"generation": ["005-050503-1077"],
-    "aggregation": {"COUNTYA": [3]}
+    "aggregation": {"COUNTYA": [3, 5] 
+    	}
     }
 }

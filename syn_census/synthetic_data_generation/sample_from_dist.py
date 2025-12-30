@@ -4,11 +4,11 @@ import re
 import numpy as np
 from collections import Counter
 import pandas as pd
-from ..utils.knapsack_utils import normalize
-from ..utils.census_utils import Race
-from ..utils.config2 import ParserBuilder
-from ..preprocessing.build_micro_dist import read_microdata
-from ..preprocessing.build_block_df import make_identifier_non_unique
+from knapsack_utils import normalize
+from census_utils import Race
+from config2 import ParserBuilder
+from build_micro_dist import read_microdata
+from build_block_df import make_identifier_non_unique
 
 parser_builder = ParserBuilder({
     'micro_file': True,

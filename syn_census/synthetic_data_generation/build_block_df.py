@@ -1,5 +1,5 @@
 import pandas as pd
-from ..utils.census_utils import num_digits
+from census_utils import num_digits
 
 USEFUL_COLS = {
         'YEAR',

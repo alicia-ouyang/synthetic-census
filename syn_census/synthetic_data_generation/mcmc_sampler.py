@@ -6,8 +6,8 @@ from functools import lru_cache
 import random
 import numpy as np
 import multiprocessing as mp
-from ..utils.knapsack_utils import perms_to_combs, counter_minus, tup_sum, prod, is_eligible, tup_minus, tup_plus, counter_minus, is_feasible, normalize, exp_normalize, scipy_multinomial, exp_noramlize_list
-from ..utils.ip_distribution import ip_solve
+from knapsack_utils import perms_to_combs, counter_minus, tup_sum, prod, is_eligible, tup_minus, tup_plus, counter_minus, is_feasible, normalize, exp_normalize, scipy_multinomial, exp_noramlize_list
+from ip_distribution import ip_solve
 
 def get_log_prob(sol, dist):
     if len(sol) == 0:

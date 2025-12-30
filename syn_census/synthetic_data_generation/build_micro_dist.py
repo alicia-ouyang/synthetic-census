@@ -1,8 +1,8 @@
 from collections import Counter, namedtuple
 import re
-from ..utils.census_utils import RACE_HIS_ENUM, Race, get_is_family_from_h_record, get_race_from_p_record, get_n_under_18_from_h_record, get_eth_from_p_record, get_age_from_p_record, get_weight_from_h_record, hh_to_race_eth_age_tup
-from ..utils.knapsack_utils import normalize
-from ..utils.config2 import ParserBuilder
+from census_utils import RACE_HIS_ENUM, Race, get_is_family_from_h_record, get_race_from_p_record, get_n_under_18_from_h_record, get_eth_from_p_record, get_age_from_p_record, get_weight_from_h_record, hh_to_race_eth_age_tup
+from knapsack_utils import normalize
+from config2 import ParserBuilder
 parser_builder = ParserBuilder(
         {
             'micro_file': True,

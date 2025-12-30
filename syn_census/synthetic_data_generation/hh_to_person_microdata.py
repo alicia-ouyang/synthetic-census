@@ -1,9 +1,9 @@
 import pandas as pd
 import random
 from sample_from_dist import DEMO_COLS, RACE_MAP
-from ..utils.census_utils import Race
-from ..preprocessing.build_micro_dist import read_microdata_granular
-from ..utils.config2 import ParserBuilder
+from census_utils import Race
+from build_micro_dist import read_microdata_granular
+from config2 import ParserBuilder
 
 parser_builder = ParserBuilder({
     'micro_file': True,

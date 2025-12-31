@@ -1,7 +1,7 @@
 import pandas as pd
 import random
 from sample_from_dist import DEMO_COLS, RACE_MAP
-from census_utils import Race
+from census_utils import Race, num_digits
 from build_micro_dist import read_microdata_granular
 from config2 import ParserBuilder
 

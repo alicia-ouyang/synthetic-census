@@ -90,8 +90,13 @@ if __name__ == '__main__':
     parser_builder.parse_args()
     print(parser_builder.args)
     args = parser_builder.args
+    if args.task_name != '':
+        task_name = args.task_name + '_'
+    else:
+        task_name = ''
+    synthetic_data_path = args.synthetic_output_dir + task_name + 'microdata.csv'
     print('Loading data...')
-    df = load_data(args.synthetic_data)
+    df = load_data(synthetic_data_path)
     num_rows = len(df)
     print(num_rows, 'rows')
     print('Reading microdata...')
@@ -123,6 +128,6 @@ if __name__ == '__main__':
     print(len(people_df), 'rows')
     for col in ['TOTAL'] + DEMO_COLS:
         assert df[col].sum() == people_df[col].sum()
-    if args.person_micro_file:
-        with open(args.person_micro_file, 'w') as f:
-            people_df.to_csv(f, index=False)
+    output_micro_file_path = args.synthetic_output_dir + task_name + 'person_micro.csv'
+    with open(output_micro_file_path, 'w') as f:
+        people_df.to_csv(f, index=False)

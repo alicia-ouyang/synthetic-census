@@ -9,6 +9,8 @@ parser_builder = ParserBuilder({
     'micro_file': True,
     'person_micro_file': False,
     'block_clean_file': True,
+    'synthetic_output_dir': True,
+    'task_name': False,
     })
 
 def load_data(fname: str):

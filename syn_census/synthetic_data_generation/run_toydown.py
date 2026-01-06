@@ -5,16 +5,17 @@ from toydown import GeoUnit, ToyDown
 from dask.distributed import Client
 import argparse
 import multiprocessing
-from ..utils.census_utils import *
+from census_utils import *
 from sample_from_dist import DEMO_COLS
-from ..preprocessing.build_block_df import USEFUL_COLS
+from build_block_df import USEFUL_COLS
 from hh_to_person_microdata import make_td_identifier
 from partition_blocks import read_block_data
 
 ARRAY_ORDER = ['TOTAL', 'NUM_HISP', 'W', 'B', 'AI_AN', 'AS', 'H_PI', 'OTH', 'TWO_OR_MORE']
 
 def load_data(task_name):
-    return pd.read_csv(get_person_micro_file(task_name), dtype={'td_identifier': str})
+    output_micro_file_path = args.synthetic_output_dir + task_name + 'person_micro.csv'
+    return pd.read_csv(output_micro_file_path, dtype={'td_identifier': str})
 
 def make_non_hispanic(df):
     df.loc[df['NUM_HISP'] > 0, ['W', 'B', 'AI_AN', 'AS', 'H_PI', 'OTH', 'TWO_OR_MORE']] = 0
@@ -98,11 +99,15 @@ if __name__ == '__main__':
     else:
         task_name = ''
     df = load_data(task_name)
+    #how does it know which block?? RUN, MAY NEED TO EDIT
     block_df = read_block_data()
     print("Making identifier...")
     make_td_identifier(block_df)
 
-    make_non_hispanic(df)
+    
+
+    # Uncomment the following line to consider Hispanic as a race category and create Non-Hispanic X categories
+    # make_non_hispanic(df)
 
     leaves = make_arrays(df)
 
@@ -145,9 +150,9 @@ if __name__ == '__main__':
         d = client.gather(adjusteds)[0]
         tot_df, vap_df = build_df_from_dict(d, block_df)
         # to_sav = np.array((client.gather(adjusteds)))
-        if WRITE:
-            tot_df.to_csv(get_dp_tot_file(task_name), index=False)
-            vap_df.to_csv(get_dp_vap_file(task_name), index=False)
+        #if WRITE:
+        tot_df.to_csv(get_dp_tot_file(task_name, args.synthetic_output_dir), index=False)
+        vap_df.to_csv(get_dp_vap_file(task_name, args.synthetic_output_dir), index=False)
         del adjusteds
         
     del model_all

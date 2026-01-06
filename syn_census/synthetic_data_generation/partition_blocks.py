@@ -3,11 +3,11 @@ import os
 import pickle as pkl
 import sys
 import numpy as np
-from .guided_solver import SOLVER_PARAMS, SOLVER_RESULTS, SolverResults, solve, reduce_dist
-from ..utils.encoding import encode_hh_dist, encode_row
-from ..utils.census_utils import *
-from ..preprocessing.build_micro_dist import read_microdata
-from .mcmc_sampler import MCMCSampler
+from guided_solver import SOLVER_PARAMS, SOLVER_RESULTS, SolverResults, solve, reduce_dist
+from utils.encoding import encode_hh_dist, encode_row
+from utils.census_utils import *
+from preprocessing.build_micro_dist import read_microdata
+from mcmc_sampler import MCMCSampler
 
 def read_block_data(block_clean_file: str):
     return pd.read_csv(block_clean_file)

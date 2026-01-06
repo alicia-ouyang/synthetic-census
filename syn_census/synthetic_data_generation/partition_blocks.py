@@ -6,7 +6,7 @@ import numpy as np
 from guided_solver import SOLVER_PARAMS, SOLVER_RESULTS, SolverResults, solve, reduce_dist
 from encoding import encode_hh_dist, encode_row
 from census_utils import *
-from preprocessing.build_micro_dist import read_microdata
+from build_micro_dist import read_microdata
 from mcmc_sampler import MCMCSampler
 
 def read_block_data(block_clean_file: str):

@@ -2,7 +2,7 @@ import gurobipy as gp
 import numpy as np
 from gurobipy import GRB
 from math import log
-from .knapsack_utils import get_ordering, normalize
+from knapsack_utils import get_ordering, normalize
 from functools import lru_cache
 
 @lru_cache(maxsize=1000)

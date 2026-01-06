@@ -1,9 +1,9 @@
 from math import log
 from collections import OrderedDict, Counter
-from ..utils.census_utils import has_valid_age_data
-from ..utils.knapsack_utils import normalize, exp_normalize, perms_to_combs, tup_sum, tup_minus
-from ..utils.ip_distribution import ip_solve
-from ..utils.encoding import encode_row, get_num_hhs, MAX_LEVEL
+from utils.census_utils import has_valid_age_data
+from utils.knapsack_utils import normalize, exp_normalize, perms_to_combs, tup_sum, tup_minus
+from utils.ip_distribution import ip_solve
+from utils.encoding import encode_row, get_num_hhs, MAX_LEVEL
 
 class SolverParams():
     def __init__(self, num_sols):

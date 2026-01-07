@@ -10,6 +10,7 @@ from sample_from_dist import DEMO_COLS
 from build_block_df import USEFUL_COLS
 from hh_to_person_microdata import make_td_identifier
 from partition_blocks import read_block_data
+import json
 
 ARRAY_ORDER = ['TOTAL', 'NUM_HISP', 'W', 'B', 'AI_AN', 'AS', 'H_PI', 'OTH', 'TWO_OR_MORE']
 
@@ -75,10 +76,13 @@ def join_with_block_info(df, block_df):
             )
 
 if __name__ == '__main__':
+    #TODO THIS CALL DOESN'T EXPECT PARAMS AND I WOULD LIKE IT TO
     multiprocessing.freeze_support()
     ## Set up args
     parser = argparse.ArgumentParser(description="ToyDownMultiAttribute noise", 
                                      prog="run_toydown.py")
+    parser.add_argument("params_file", type=str, 
+                        help="Path to the params.json file")
     parser.add_argument('name', nargs='?', default='')
     parser.add_argument("w", metavar="num_workers", type=int,
                         help="How many cores to use")
@@ -100,7 +104,22 @@ if __name__ == '__main__':
         task_name = ''
     df = load_data(task_name)
     #how does it know which block?? RUN, MAY NEED TO EDIT
-    block_df = read_block_data()
+    try:
+        with open(args.params_file, 'r') as f:
+            params_data = json.load(f)
+            
+            # Access 'micro_file' from the JSON
+            # Using .get() prevents the script from crashing if the key is missing
+            args.synthetic_output_dir = params_data.get('synthetic_output_dir')
+            
+            # You can also pull other keys from your ParserBuilder here
+            args.state = params_data.get('state', True)
+            args.block_clean_file = params_data.get('block_clean_file')
+    except FileNotFoundError:
+        print(f"Error: The file '{args.params_file}' was not found.")
+        
+
+    block_df = read_block_data(args.block_clean_file)
     print("Making identifier...")
     make_td_identifier(block_df)
 

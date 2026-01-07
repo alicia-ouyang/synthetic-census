@@ -102,7 +102,6 @@ if __name__ == '__main__':
         task_name = args.name + '_'
     else:
         task_name = ''
-    df = load_data(task_name)
     #how does it know which block?? RUN, MAY NEED TO EDIT
     try:
         with open(args.params_file, 'r') as f:
@@ -123,7 +122,7 @@ if __name__ == '__main__':
     print("Making identifier...")
     make_td_identifier(block_df)
 
-    
+    df = load_data(task_name)
 
     # Uncomment the following line to consider Hispanic as a race category and create Non-Hispanic X categories
     # make_non_hispanic(df)

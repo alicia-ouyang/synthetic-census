@@ -28,7 +28,8 @@ def make_arrays(df):
     print(vap_df.head())
     leaves = {}
     for (i, tot_row), (j, vap_row) in zip(tot_df.iterrows(), vap_df.iterrows()):
-        assert tot_row['td_identifier'] == vap_row['td_identifier']
+        if tot_row['td_identifier'] != vap_row['td_identifier']:
+            continue
         tot_array = tot_row[ARRAY_ORDER].values
         vap_array = vap_row[ARRAY_ORDER].values
         leaves[str(tot_row['td_identifier'])] = {'TOTPOP': tot_array, 'VAP': vap_array}

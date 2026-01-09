@@ -4,10 +4,10 @@
 #SBATCH -p sched_mit_sloan_batch_r8   # Partition to submit to
 #SBATCH --mem=10G           # Memory pool for all cores (see also --mem-per-cpu)
 #SBATCH --mail-type=END
-if [ "$#" -eq 2 ]; then
+if [ "$#" -eq 1 ]; then
     PARAM_FILE="$1"
 else
-    echo Missing arguments PARAM_FILE or TASK_NAME
+    echo Missing arguments PARAM_FILE
     exit 1
 fi
 module load miniforge

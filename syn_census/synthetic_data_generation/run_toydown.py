@@ -176,8 +176,8 @@ if __name__ == '__main__':
         tot_df, vap_df = build_df_from_dict(d, block_df)
         # to_sav = np.array((client.gather(adjusteds)))
         #if WRITE:
-        tot_df.to_csv(get_dp_tot_file(task_name, eps, j, args.synthetic_output_dir), index=False)
-        vap_df.to_csv(get_dp_vap_file(task_name, eps, j, args.synthetic_output_dir), index=False)
+        tot_df.to_csv(get_dp_tot_file(task_name, str(eps), str(j), args.synthetic_output_dir), index=False)
+        vap_df.to_csv(get_dp_vap_file(task_name, str(eps), str(j), args.synthetic_output_dir), index=False)
         del adjusteds
         
     del model_all

@@ -76,6 +76,12 @@ def join_with_block_info(df, block_df):
             validate='one_to_one',
             )
 
+def get_dp_tot_file(task_name='', eps='', trial='', directory_name = ''):
+    return directory_name + task_name + '_' + eps + '_' + trial + '_' 'tot_toydown.csv'
+
+def get_dp_vap_file(task_name='', eps='', trial='', directory_name = ''):
+    return directory_name + task_name + '_' + eps + '_' + trial + '_' 'vap_toydown.csv'
+
 if __name__ == '__main__':
     #TODO THIS CALL DOESN'T EXPECT PARAMS AND I WOULD LIKE IT TO
     multiprocessing.freeze_support()
@@ -170,8 +176,8 @@ if __name__ == '__main__':
         tot_df, vap_df = build_df_from_dict(d, block_df)
         # to_sav = np.array((client.gather(adjusteds)))
         #if WRITE:
-        tot_df.to_csv(get_dp_tot_file(task_name, args.synthetic_output_dir), index=False)
-        vap_df.to_csv(get_dp_vap_file(task_name, args.synthetic_output_dir), index=False)
+        tot_df.to_csv(get_dp_tot_file(task_name, eps, j, args.synthetic_output_dir), index=False)
+        vap_df.to_csv(get_dp_vap_file(task_name, eps, j, args.synthetic_output_dir), index=False)
         del adjusteds
         
     del model_all

@@ -3,6 +3,7 @@
 #SBATCH -t 0-00:30          # Runtime in D-HH:MM, minimum of 10 minutes
 #SBATCH -p sched_mit_sloan_batch_r8   # Partition to submit to
 #SBATCH --mem=10G           # Memory pool for all cores (see also --mem-per-cpu)
+#SBATCH -o out_files/toydown.%j.out
 #SBATCH --mail-type=END
 if [ "$#" -eq 1 ]; then
     PARAM_FILE="$1"

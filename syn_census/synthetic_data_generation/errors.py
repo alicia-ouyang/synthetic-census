@@ -27,6 +27,8 @@ def make_ids(df):
     df["COUNTYID"] = df["STATEA"] + df["COUNTYA"]
     df["TRACTID"] = df["COUNTYID"] + df["TRACTA"]
     df["GEOID"] = df["TRACTID"] + df["BLOCKA"]
+    
+    return df
 
 def clean_blocks(df):
     df_clean = df.copy()
@@ -77,13 +79,13 @@ if __name__ == '__main__':
     print(toydown)
 
     db1 = pd.read_csv(db1_name)
-    make_ids(db1)
+    db1 = make_ids(db1)
     db1_blocks = db1.groupby("GEOID").sum().reset_index()[["GEOID"] + races]
     db1_counties = db1.groupby("COUNTYID").sum().reset_index()[["GEOID"] + races]
     print("db1 done processing")
 
     db2 = pd.read_csv(db2_name)
-    make_ids(db2)
+    db2 = make_ids(db2)
     db2_blocks = db2.groupby("GEOID").sum().reset_index()[["GEOID"] + races]
     db2_counties = db2.groupby("COUNTYID").sum().reset_index()[["GEOID"] + races]
 

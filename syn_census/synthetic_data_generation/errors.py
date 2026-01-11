@@ -111,7 +111,7 @@ if __name__ == '__main__':
     plt.plot((-0.5, 7.5), (0, 0), color="red", linewidth=0.5)
     b = plt.boxplot([all_counties[all_counties["ERROR"].notna()]["ERROR"]] + [all_counties[all_counties["{}_ERROR".format(r)].notna()]["{}_ERROR".format(r)] for r in races], 
         notch=False, meanline=False, showmeans=False, showfliers=True, showcaps=True, whis=1.5, patch_artist=True, boxprops=dict(facecolor = "white"),
-        positions=range(len(races) + 1), labels=["Average"] + race_names)
+        positions=range(len(races) + 1), tick_labels=["Average"] + race_names)
     for median in b['medians']:
         median.set_color('#1f77b4')
     if topdown:
@@ -144,7 +144,7 @@ if __name__ == '__main__':
     plt.plot((-0.5, 7.5), (0, 0), color="red", linewidth=0.5)
     b = plt.boxplot([all_blocks[all_blocks["ERROR"].notna()]["ERROR"]] + [all_blocks[all_blocks["{}_ERROR".format(r)].notna()]["{}_ERROR".format(r)] for r in races], 
         notch=False, meanline=False, showmeans=False, showfliers=True, showcaps=True, whis=1.5, patch_artist=True, boxprops=dict(facecolor = "white"),
-        positions=range(len(races) + 1), labels=["Average"] + race_names)
+        positions=range(len(races) + 1), tick_labels=["Average"] + race_names)
     for median in b['medians']:
         median.set_color('#1f77b4')
     if topdown:
@@ -162,7 +162,7 @@ if __name__ == '__main__':
         plt.title("TopDown vs Released on Blocks")
         plt.savefig("errors_topdown_blocks.png", dpi=1000)
     elif toydown:
-        plt.title("ToyDown vs Synthetic on Blocks")
+        plt.title("ToyDown vs Synthetic on Blocks in " + state)
         plt.savefig(state + "_errors_toydown_blocks.png", dpi=1000)
     elif swapped2:
         plt.title("Swapped (2%) vs Synthetic on Blocks")

@@ -174,7 +174,7 @@ if __name__ == '__main__':
         plt.title("TopDown vs Released on Blocks")
         plt.savefig("ratio_errors_topdown_blocks.png", dpi=1000)
     elif toydown:
-        plt.title("ToyDown vs Synthetic on Blocks")
+        plt.title("ToyDown vs Synthetic on Blocks in "+ state)
         plt.savefig(state + "_ratio_errors_toydown_blocks.png", dpi=1000)
     elif swapped2:
         plt.title("Swapped (2%) vs Synthetic on Blocks")

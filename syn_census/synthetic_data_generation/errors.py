@@ -12,19 +12,21 @@ race_names = ["W", "B", "AI/AN", "AS", "H/PI", "OTH", "2+"]
 
 def make_ids(df):
     null_idxs = df[["STATEA", "COUNTYA", "TRACTA", "BLOCKA"]].isnull().any(axis=1) | (df[["STATEA", "COUNTYA", "TRACTA", "BLOCKA"]] == "None").any(axis=1)
-    nonnull_idxs = ~null_idxs
+    # nonnull_idxs = ~null_idxs
+    if len(df[null_idxs]) > 0:
+        raise ValueError("Null values exist")
 
-    df.loc[null_idxs, "COUNTYID"] = None
-    df.loc[null_idxs, "TRACTID"] = None
-    df.loc[null_idxs, "GEOID"] = None
+    # df.loc[null_idxs, "COUNTYID"] = None
+    # df.loc[null_idxs, "TRACTID"] = None
+    # df.loc[null_idxs, "GEOID"] = None
 
     df["STATEA"] = df["STATEA"].astype(int).astype(str).str.zfill(2)
     df["COUNTYA"] = df["COUNTYA"].astype(int).astype(str).str.zfill(3)
     df["TRACTA"] = df["TRACTA"].astype(int).astype(str).str.zfill(6)
     df["BLOCKA"] = df["BLOCKA"].astype(int).astype(str).str.zfill(4)
-    df.loc[nonnull_idxs, "COUNTYID"] = df.loc[nonnull_idxs, "STATEA"] + df.loc[nonnull_idxs, "COUNTYA"]
-    df.loc[nonnull_idxs, "TRACTID"] = df.loc[nonnull_idxs, "COUNTYID"] + df.loc[nonnull_idxs, "TRACTA"]
-    df.loc[nonnull_idxs, "GEOID"] = df.loc[nonnull_idxs, "TRACTID"] + df.loc[nonnull_idxs, "BLOCKA"]
+    df["COUNTYID"] = df["STATEA"] + df["COUNTYA"]
+    df["TRACTID"] = df["COUNTYID"] + df["TRACTA"]
+    df["GEOID"] = df["TRACTID"] + df["BLOCKA"]
 
 def clean_blocks(df):
     df_clean = df.copy()

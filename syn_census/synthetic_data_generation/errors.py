@@ -18,10 +18,10 @@ def make_ids(df):
     df.loc[null_idxs, "TRACTID"] = None
     df.loc[null_idxs, "GEOID"] = None
 
-    df.loc[nonnull_idxs, "STATEA"] = df.loc[nonnull_idxs, "STATEA"].astype(float).astype(int).astype(str).str.zfill(2)
-    df.loc[nonnull_idxs, "COUNTYA"] = df.loc[nonnull_idxs, "COUNTYA"].astype(float).astype(int).astype(str).str.zfill(3)
-    df.loc[nonnull_idxs, "TRACTA"] = df.loc[nonnull_idxs, "TRACTA"].astype(float).astype(int).astype(str).str.zfill(6)
-    df.loc[nonnull_idxs, "BLOCKA"] = df.loc[nonnull_idxs, "BLOCKA"].astype(float).astype(int).astype(str).str.zfill(4)
+    df["STATEA"] = df["STATEA"].astype(int).astype(str).str.zfill(2)
+    df["COUNTYA"] = df["COUNTYA"].astype(int).astype(str).str.zfill(3)
+    df["TRACTA"] = df["TRACTA"].astype(int).astype(str).str.zfill(6)
+    df["BLOCKA"] = df["BLOCKA"].astype(int).astype(str).str.zfill(4)
     df.loc[nonnull_idxs, "COUNTYID"] = df.loc[nonnull_idxs, "STATEA"] + df.loc[nonnull_idxs, "COUNTYA"]
     df.loc[nonnull_idxs, "TRACTID"] = df.loc[nonnull_idxs, "COUNTYID"] + df.loc[nonnull_idxs, "TRACTA"]
     df.loc[nonnull_idxs, "GEOID"] = df.loc[nonnull_idxs, "TRACTID"] + df.loc[nonnull_idxs, "BLOCKA"]
@@ -89,9 +89,12 @@ if __name__ == '__main__':
     all_blocks = db1_blocks.join(db2_blocks.set_index("GEOID"), on="GEOID", how="outer", rsuffix="_2").reset_index().fillna(0)
     all_counties = db1_counties.join(db2_counties.set_index("COUNTYID"), on="COUNTYID", how="outer", rsuffix="_2").reset_index().fillna(0)
 
-
-    block_errors = (all_blocks[races] - all_blocks[["{}_2".format(r) for r in races]]).abs()
-    print((all_blocks[races] - all_blocks[["{}_2".format(r) for r in races]]).sum().sum())
+    # block_abs_errors = (all_blocks[races] - all_blocks[["{}_2".format(r) for r in races]]).abs()
+    diff_data = {r: (all_blocks[r] - all_blocks[f"{r}_2"]).abs()for r in races}
+    block_abs_errors = pd.DataFrame(diff_data)
+    print(block_abs_errors.sum())
+    # block_errors = (all_blocks[races] - all_blocks[["{}_2".format(r) for r in races]]).abs()
+    # print((all_blocks[races] - all_blocks[["{}_2".format(r) for r in races]]).sum().sum())
 
     for race in races:
         all_blocks["{}_ERROR".format(race)] = all_blocks["{}_2".format(race)] - all_blocks[race]

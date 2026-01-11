@@ -81,13 +81,13 @@ if __name__ == '__main__':
     db1 = pd.read_csv(db1_name)
     db1 = make_ids(db1)
     db1_blocks = db1.groupby("GEOID").sum().reset_index()[["GEOID"] + races]
-    db1_counties = db1.groupby("COUNTYID").sum().reset_index()[["GEOID"] + races]
+    db1_counties = db1.groupby("COUNTYID").sum().reset_index()[["COUNTYID"] + races]
     print("db1 done processing")
 
     db2 = pd.read_csv(db2_name)
     db2 = make_ids(db2)
     db2_blocks = db2.groupby("GEOID").sum().reset_index()[["GEOID"] + races]
-    db2_counties = db2.groupby("COUNTYID").sum().reset_index()[["GEOID"] + races]
+    db2_counties = db2.groupby("COUNTYID").sum().reset_index()[["COUNTYID"] + races]
 
     print("done loading")
 
@@ -135,7 +135,7 @@ if __name__ == '__main__':
         plt.savefig("errors_topdown_counties.png", dpi=1000)
     elif toydown:
         plt.title("ToyDown vs Synthetic on Counties in"+ state)
-        plt.savefig(state + "_errors_toydown_counties.png", dpi=1000)
+        plt.savefig(state + "_" + name + "_errors_toydown_counties.png", dpi=1000)
     elif swapped2:
         plt.title("Swapped (2%) vs Synthetic on Counties")
         plt.savefig("errors_swapped2_counties.png", dpi=1000)
@@ -168,7 +168,7 @@ if __name__ == '__main__':
         plt.savefig("errors_topdown_blocks.png", dpi=1000)
     elif toydown:
         plt.title("ToyDown vs Synthetic on Blocks in " + state)
-        plt.savefig(state + "_errors_toydown_blocks.png", dpi=1000)
+        plt.savefig(state + "_" + name + "_errors_toydown_blocks.png", dpi=1000)
     elif swapped2:
         plt.title("Swapped (2%) vs Synthetic on Blocks")
         plt.savefig("errors_swapped2_blocks.png", dpi=1000)

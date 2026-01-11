@@ -75,13 +75,12 @@ if __name__ == '__main__':
     
     print(toydown)
 
-    db1 = pd.read_csv(db1_name, dtype={"GEOID": str, "COUNTYID": str})
-    if not ("GEOID" in db1.columns):
-        make_ids(db1)
+    db1 = pd.read_csv(db1_name)
+    make_ids(db1)
     db1_blocks = db1.groupby("GEOID").sum().reset_index()[["GEOID"] + races]
     db1_counties = db1.groupby("COUNTYID").sum().reset_index()[["GEOID"] + races]
 
-    db2 = pd.read_csv(db2_name, dtype={"GEOID": str, "COUNTYID": str})
+    db2 = pd.read_csv(db2_name)
     if not ("GEOID" in db2.columns):
         make_ids(db2)
     db2_blocks = db2.groupby("GEOID").sum().reset_index()[["GEOID"] + races]
